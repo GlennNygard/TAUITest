@@ -2,32 +2,27 @@ using System;
 using UnityEngine;
 
 
-[RequireComponent(typeof(Canvas))]
-public class SettingsPopUpController : MonoBehaviour {
+public class SettingsPopupController : MonoBehaviour {
 
     [SerializeField]
-    private SettingsPopUpView _settingsPopUpView;
-
-    private Canvas _canvas;
+    private SettingsPopupView _settingsPopUpView;
 
 
     void Start() {
-        _canvas = GetComponent<Canvas>();
 
         if(_settingsPopUpView == null) {
-            _settingsPopUpView = GetComponentInChildren<SettingsPopUpView>();
+            _settingsPopUpView = GetComponentInChildren<SettingsPopupView>();
         }
 
-        _settingsPopUpView.OnExitClicked += () => {
-            Hide();
-        };
+        // _settingsPopUpView.OnPopupHide += () => {
+        // };
     }
 
     public void Show() {
-        _canvas.enabled = true;
+        _settingsPopUpView.Show();
     }
 
-    public void Hide() {
-        _canvas.enabled = false;
+    public void Hide(bool skipAnimations=false) {
+        _settingsPopUpView.Hide(skipAnimations);
     }
 }

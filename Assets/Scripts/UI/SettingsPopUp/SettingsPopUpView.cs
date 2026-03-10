@@ -3,20 +3,11 @@ using UnityEngine.UI;
 using System;
 
 
-public class SettingsPopUpView : MonoBehaviour {
+public class SettingsPopupView : BasePopup {
 
-    [SerializeField]
-    private Button _exitButton;
+    // Not really doing anything with this for now.
+    private SettingsPopupItemView[] _settingsItems;
 
-    public event Action OnExitClicked;
+    // Other settings popup UI elements would also be added here.
 
-    void Start() {
-
-        if(_exitButton != null) {
-            _exitButton.onClick.AddListener(() => OnExitClicked?.Invoke());
-        }
-        else {
-            Debug.LogWarning("Settings exit button has not been assigned.");
-        }
-    }
 }

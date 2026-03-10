@@ -25,9 +25,11 @@ public class LevelCompleteController : MonoBehaviour {
 
     public void Show() {
         _canvas.enabled = true;
+        _levelCompleteView.Show();
     }
 
     public void Hide() {
         _canvas.enabled = false;
+        _levelCompleteView.Hide();
     }
 }
