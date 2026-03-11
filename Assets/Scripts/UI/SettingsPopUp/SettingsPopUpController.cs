@@ -13,9 +13,6 @@ public class SettingsPopupController : MonoBehaviour {
         if(_settingsPopUpView == null) {
             _settingsPopUpView = GetComponentInChildren<SettingsPopupView>();
         }
-
-        // _settingsPopUpView.OnPopupHide += () => {
-        // };
     }
 
     public void Show() {
