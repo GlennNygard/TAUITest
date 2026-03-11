@@ -1,0 +1,64 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: SettingsPopupStringTable Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: SettingsPopupStringTable
+  m_TableCollectionNameGuidString: 8f232ea3b00c947cbaec3f40be666a28
+  m_Entries:
+  - m_Id: 440396668928
+    m_Key: SettingsItemSound
+    m_Metadata:
+      m_Items: []
+  - m_Id: 537004072960
+    m_Key: SettingsItemMusic
+    m_Metadata:
+      m_Items: []
+  - m_Id: 647066804224
+    m_Key: SettingsItemNotifications
+    m_Metadata:
+      m_Items: []
+  - m_Id: 712409866240
+    m_Key: SettingsItemVibration
+    m_Metadata:
+      m_Items: []
+  - m_Id: 795469668352
+    m_Key: SettingsItemLanguage
+    m_Metadata:
+      m_Items: []
+  - m_Id: 948809228288
+    m_Key: SettingsButtonT&C
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1339890327552
+    m_Key: SettingsButtonPrivacy
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1411445153792
+    m_Key: SettingsButtonSupport
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1478453354496
+    m_Key: SettingsHeader
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items: []
+  m_KeyGenerator:
+    rid: 3074311614428348950
+  references:
+    version: 2
+    RefIds:
+    - rid: 3074311614428348950
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1773144847896

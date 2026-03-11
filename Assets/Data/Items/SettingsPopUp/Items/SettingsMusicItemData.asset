@@ -14,3 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainIcon: {fileID: 21300000, guid: e55ac525dbee24745a6a4baaca4ee485, type: 3}
   MainText: Music
+  LocString:
+    m_TableReference:
+      m_TableCollectionName: GUID:8f232ea3b00c947cbaec3f40be666a28
+    m_TableEntryReference:
+      m_KeyId: 537004072960
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []

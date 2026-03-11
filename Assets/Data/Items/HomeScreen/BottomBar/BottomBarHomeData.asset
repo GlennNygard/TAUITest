@@ -14,4 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MainIcon: {fileID: 21300000, guid: 016acd2e139c542afbb46d6eddbe8086, type: 3}
   MainText: Home
+  LocString:
+    m_TableReference:
+      m_TableCollectionName: GUID:4b6ea6874bb80406db46514e035061ff
+    m_TableEntryReference:
+      m_KeyId: 4077348970496
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
   Locked: 0
+  references:
+    version: 2
+    RefIds: []

@@ -13,3 +13,15 @@ MonoBehaviour:
   m_Name: SettingsPrivacyButttonData
   m_EditorClassIdentifier: 
   MainText: Privacy
+  LocString:
+    m_TableReference:
+      m_TableCollectionName: GUID:8f232ea3b00c947cbaec3f40be666a28
+    m_TableEntryReference:
+      m_KeyId: 1339890327552
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []

@@ -971,6 +971,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _exitButton: {fileID: 2334114722224690218}
+  _transitionAnimationDuration: 0.25
+  _headerText: {fileID: 1624708761907310388}
+  _headerTextLS:
+    m_TableReference:
+      m_TableCollectionName: GUID:8f232ea3b00c947cbaec3f40be666a28
+    m_TableEntryReference:
+      m_KeyId: 1478453354496
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!225 &6314186631594757961
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -2666,6 +2680,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3444132671348017317}
     m_Modifications:
+    - target: {fileID: 1463435424970428654, guid: 61b20ab574bae4d8098b004f519bd170, type: 3}
+      propertyPath: _itemData
+      value: 
+      objectReference: {fileID: 11400000, guid: 2b684b864f6fd419a903845116529ca7, type: 2}
     - target: {fileID: 3482126746843643862, guid: 61b20ab574bae4d8098b004f519bd170, type: 3}
       propertyPath: m_Name
       value: SettingsGreenButton

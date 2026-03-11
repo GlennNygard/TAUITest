@@ -8,6 +8,9 @@ using PrimeTween;
 [RequireComponent(typeof(Button))]
 public class HomeScreenBottomBarItem : MonoBehaviour {
 
+    // These could be made inspector variables or be read
+    // from somewhere else, but for now I think it's fine
+    // to leave them as constants.
     private const float ANIMATION_DURATION = 0.25f;
 
     private const float ACTIVE_WIDTH_MULTIPLIER = 2f;
@@ -35,17 +38,18 @@ public class HomeScreenBottomBarItem : MonoBehaviour {
     }
 
 
+    private RectTransform _iconRectTransform;
     private LayoutElement _layoutElement;
-    private LayoutElement _iconLayoutElement;
     private LayoutElement _textLayoutElement;
     private float _initialWidth;
-    private float _initialIconWidth;
-
     private float _initialTextHeight;
 
 
     // Tweens.
     private Tween _mainTween;
+    private Tween _textTween;
+    private Tween _widthTween;
+    private Tween _iconTween;
 
 
     void Awake() {
@@ -55,12 +59,12 @@ public class HomeScreenBottomBarItem : MonoBehaviour {
         _layoutElement = GetComponent<LayoutElement>();
         _initialWidth = _layoutElement.preferredWidth;
 
-        _iconLayoutElement = _icon.GetComponent<LayoutElement>();
-        if(_iconLayoutElement != null) {
-            _initialIconWidth = _iconLayoutElement.minWidth;
-        }
+        _iconRectTransform = _icon.GetComponent<RectTransform>();
 
-        _mainItemText.text = _itemData.MainText;
+        if(!_itemData.LocString.IsEmpty) {
+            _itemData.LocString.GetLocalizedStringAsync().Completed += op => {
+                _mainItemText.text = op.Result;};
+        }
         _textLayoutElement = _mainItemText.gameObject.GetComponent<LayoutElement>();
         _initialTextHeight = _textLayoutElement.preferredHeight;
 
@@ -69,10 +73,18 @@ public class HomeScreenBottomBarItem : MonoBehaviour {
         Deactivate();
     }
 
+    public void LockedClickEffect() {
+        _iconTween.Stop();
+        _iconTween = Tween.Custom(0f, 1f, duration: 0.1f, cycles: 2, cycleMode: CycleMode.Yoyo, onValueChange: (float val)=> {
+            _iconRectTransform.localScale = Vector3.Lerp(Vector3.one, Vector3.one * 0.9f, val);
+        });
+    }
+
     public void Activate() {
         _mainItemText.enabled = true;
 
-        Tween.Custom(0f, 1f, duration: ANIMATION_DURATION, onValueChange: (float val)=> {
+        _textTween.Stop();
+        _textTween = Tween.Custom(0f, 1f, duration: ANIMATION_DURATION, onValueChange: (float val)=> {
             _textLayoutElement.preferredHeight = val * _initialTextHeight;
         });
 
@@ -82,16 +94,11 @@ public class HomeScreenBottomBarItem : MonoBehaviour {
             _mainTween = Tween.Custom(_background.color.a, 1f, duration: ANIMATION_DURATION, onValueChange: (float val)=> {
                 _background.color = new Color(
                     _background.color.r, _background.color.g, _background.color.b, val);
-                // _layoutElement.preferredWidth = val * _initialWidth * ACTIVE_WIDTH_MULTIPLIER;
             });
         }
-        if(_iconLayoutElement != null) {
-            Tween.UIMinWidth(
-                _iconLayoutElement,
-                new TweenSettings<float>(_initialIconWidth, _initialIconWidth * 1.2f, ease: Ease.InOutBounce));
-        }
 
-        Tween.Custom(_initialWidth, _initialWidth * ACTIVE_WIDTH_MULTIPLIER, duration: ANIMATION_DURATION, ease: Ease.OutQuad, onValueChange: (float val)=> {
+        _widthTween.Stop();
+        _widthTween = Tween.Custom(_initialWidth, _initialWidth * ACTIVE_WIDTH_MULTIPLIER, duration: ANIMATION_DURATION, ease: Ease.OutQuad, onValueChange: (float val)=> {
             _layoutElement.preferredWidth = val;
         });
     }
@@ -99,7 +106,8 @@ public class HomeScreenBottomBarItem : MonoBehaviour {
     public void Deactivate() {
         _mainItemText.enabled = false;
 
-        Tween.Custom(1f, 0f, duration: ANIMATION_DURATION, onValueChange: (float val)=> {
+        _textTween.Stop();
+        _textTween = Tween.Custom(1f, 0f, duration: ANIMATION_DURATION, onValueChange: (float val)=> {
             _textLayoutElement.preferredHeight = val * _initialTextHeight;
         });
 
@@ -108,12 +116,12 @@ public class HomeScreenBottomBarItem : MonoBehaviour {
             _mainTween = Tween.Custom(_background.color.a, 0f, duration: ANIMATION_DURATION, onValueChange: (float val)=> {
                 _background.color = new Color(
                     _background.color.r, _background.color.g, _background.color.b, val);
-                // _layoutElement.preferredWidth = val * _initialWidth * ACTIVE_WIDTH_MULTIPLIER;
             }).OnComplete(() => {
                 _background.enabled = false;});
         }
 
-        Tween.Custom(_initialWidth * ACTIVE_WIDTH_MULTIPLIER, _initialWidth, duration: ANIMATION_DURATION * 0.5f, onValueChange: (float val)=> {
+        _widthTween.Stop();
+        _widthTween = Tween.Custom(_initialWidth * ACTIVE_WIDTH_MULTIPLIER, _initialWidth, duration: ANIMATION_DURATION * 0.5f, onValueChange: (float val)=> {
             _layoutElement.preferredWidth = val;
         });
     }

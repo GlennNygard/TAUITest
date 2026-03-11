@@ -7,10 +7,12 @@ using PrimeTween;
 [RequireComponent(typeof(Canvas))]
 public class BasePopup : MonoBehaviour {
 
-    private const float ANIMATION_DURATION = 0.25f;
 
     [SerializeField]
     private Button _exitButton;
+
+    [SerializeField]
+    private float _transitionAnimationDuration = 0.25f;
 
     public event Action OnPopupShow;
     public event Action OnPopupHide;
@@ -19,9 +21,14 @@ public class BasePopup : MonoBehaviour {
     protected CanvasGroup _canvasGroup;
 
 
+    protected virtual void Setup() {}
+
+
     void Awake() {
         _canvas = GetComponent<Canvas>();
         _canvasGroup = GetComponent<CanvasGroup>();
+
+        Setup();
     }
 
     void Start() {
@@ -38,7 +45,7 @@ public class BasePopup : MonoBehaviour {
     public virtual void Show() {
         _canvas.enabled = true;
         if(_canvasGroup != null) {
-            Tween.Alpha(_canvasGroup, new TweenSettings<float>(startValue: 0f, endValue: 1f, duration: ANIMATION_DURATION));
+            Tween.Alpha(_canvasGroup, new TweenSettings<float>(startValue: 0f, endValue: 1f, duration: _transitionAnimationDuration));
         }
         OnPopupShow?.Invoke();
     }
@@ -47,7 +54,7 @@ public class BasePopup : MonoBehaviour {
         if(!skipAnimations && _canvasGroup != null) {
             Tween.Alpha(
                 _canvasGroup,
-                new TweenSettings<float>(startValue: 1f, endValue: 0f, duration: ANIMATION_DURATION)).OnComplete(() => {
+                new TweenSettings<float>(startValue: 1f, endValue: 0f, duration: _transitionAnimationDuration)).OnComplete(() => {
                     _canvas.enabled = false;
                 });
         }

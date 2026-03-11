@@ -14,9 +14,11 @@ public class SettingsPopupItemView : MonoBehaviour {
     [SerializeField]
     private TextMeshProUGUI _mainText;
 
-    void Start() {
+    void Awake() {
 
         _mainImage.sprite = _itemData.MainIcon;
-        _mainText.text = _itemData.MainText;
+
+        _itemData.LocString.GetLocalizedStringAsync().Completed += op => {
+            _mainText.text = op.Result;};
     }
 }

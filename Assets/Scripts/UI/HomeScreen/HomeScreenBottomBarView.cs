@@ -1,3 +1,4 @@
+using System;
 using PrimeTween;
 using UnityEngine;
 
@@ -8,11 +9,15 @@ public class HomeScreenBottomBarView : MonoBehaviour {
     [SerializeField]
     private int _activeItemIndex;
 
+    public event Action<HomeScreenBottomBarItem> OnItemActivated;
+    public event Action<HomeScreenBottomBarItem> OnItemDeactivated;
+
     private HomeScreenBottomBarItem[] _itemList;
 
     private RectTransform _rectTransform;
     private Vector2 _initialBarSize;
     private TweenSettings _moveInTweenSettings;
+
 
     void Awake() {
         _itemList = GetComponentsInChildren<HomeScreenBottomBarItem>();
@@ -24,31 +29,30 @@ public class HomeScreenBottomBarView : MonoBehaviour {
     }
 
     void Start() {
-        // if(_activeItemIndex >= _itemList.Length) {
-        //     Debug.LogWarning("Active item index outside the item range.");
-        //     _activeItemIndex = 0;
-        // }
 
         for(int i = 0; i < _itemList.Length; i++) {
             HomeScreenBottomBarItem item = _itemList[i];
 
-            int index = i;
-
-            if(index == _activeItemIndex) {
-                item.Activate();
+            if(item.Locked) {
+                item.MainButton.onClick.AddListener(()=> {
+                    item.LockedClickEffect();});
+                continue;
             }
 
-            if(item.Locked) {
-                continue;
+            int index = i;
+            if(index == _activeItemIndex) {
+                item.Activate();
             }
 
             item.MainButton.onClick.AddListener(()=> {
                 if(_activeItemIndex != -1) {
                     _itemList[_activeItemIndex].Deactivate();
+                    OnItemDeactivated?.Invoke(_itemList[_activeItemIndex]);
                 }
                 if(index != _activeItemIndex) {
-                    _itemList[index].Activate();
                     _activeItemIndex = index;
+                    _itemList[_activeItemIndex].Activate();
+                    OnItemActivated?.Invoke(_itemList[_activeItemIndex]);
                 }
                 else {
                     _activeItemIndex = -1;
