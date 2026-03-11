@@ -11,11 +11,10 @@ public class HomeScreenDebugRowView : MonoBehaviour {
     public event Action OnLevelCompleteSelected;
 
 
-    void Start() {
+    void Awake() {
 
         if(_levelCompleteButton != null) {
             _levelCompleteButton.onClick.AddListener(() => OnLevelCompleteSelected?.Invoke());
         }
-        
     }
 }

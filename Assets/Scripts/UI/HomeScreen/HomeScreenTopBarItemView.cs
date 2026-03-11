@@ -21,7 +21,7 @@ public class HomeScreenTopBarItemView : MonoBehaviour {
     private TextMeshProUGUI _iconText;
 
 
-    void Start() {
+    void Awake() {
 
         _mainImage.sprite = _itemData.MainIcon;
 

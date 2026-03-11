@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 
@@ -35,6 +36,17 @@ public class HomeScreenController : MonoBehaviour {
 
         _homeScreenDebugRowView.OnLevelCompleteSelected += () => {
             _levelCompleteController.Show();
+        };
+
+
+        // Runs when a new bottom bar item has been toggled on.
+        _homeScreenBottomBarView.OnContentActivated += (HomeScreenBottomBarItem item) => {
+            Debug.Log(String.Format("New content clicked: {0}.", item.ButtonLabel));
+        };
+
+        // Runs when all bottom bar items have been deactivated. Provides last clicked item.
+        _homeScreenBottomBarView.OnClosed += (HomeScreenBottomBarItem item) => {
+            Debug.Log(String.Format("All content closed. Last clicked item: {0}.", item.ButtonLabel));
         };
 
         _homeScreenBottomBarView.Show();

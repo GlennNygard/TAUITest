@@ -21,10 +21,10 @@ public class LevelCompleteStarView : MonoBehaviour {
     [Header("Configuration")]
 
     [SerializeField]
-    private float _starCrackleAnimationDuration = 0.4f;
+    private float _starCrackleAnimationDuration = 0.3f;
 
     [SerializeField]
-    private float _bounceDuration = 0.4f;
+    private float _starIntroAnimationDuration = 0.4f;
 
     private RectTransform _starImageRect;
     private Vector2 _initialStarSize;
@@ -57,7 +57,7 @@ public class LevelCompleteStarView : MonoBehaviour {
         Color starImageStartColor = _starImage.color;
         Tween.Custom(
             0f, 1f,
-            duration: _bounceDuration,
+            duration: _starIntroAnimationDuration,
             startDelay: _starCrackleAnimationDuration,
             ease: Easing.Overshoot(1.2f),
             onValueChange: (float val) => {

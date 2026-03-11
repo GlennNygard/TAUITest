@@ -7,8 +7,6 @@ public class SettingsItemData : ScriptableObject {
 
     public Sprite MainIcon;
 
-    public string MainText;
-
     public LocalizedString LocString;
     
 }

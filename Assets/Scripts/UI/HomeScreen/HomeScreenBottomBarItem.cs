@@ -8,9 +8,12 @@ using PrimeTween;
 [RequireComponent(typeof(Button))]
 public class HomeScreenBottomBarItem : MonoBehaviour {
 
-    // These could be made inspector variables or be read
-    // from somewhere else, but for now I think it's fine
-    // to leave them as constants.
+    /*
+    These could be made inspector variables or be read
+    from somewhere else, but since we don't have a great system
+    for setting this up yet (and these are individual item views an not a managing view),
+    I think it's easier to leave them as constants for now.
+    */
     private const float ANIMATION_DURATION = 0.25f;
 
     private const float ACTIVE_WIDTH_MULTIPLIER = 2f;
@@ -29,6 +32,10 @@ public class HomeScreenBottomBarItem : MonoBehaviour {
 
     [HideInInspector]
     public Button MainButton;
+
+    public string ButtonLabel {
+        get {return _mainItemText.text;}
+    }
 
 
     public bool Locked {
@@ -101,6 +108,12 @@ public class HomeScreenBottomBarItem : MonoBehaviour {
         _widthTween = Tween.Custom(_initialWidth, _initialWidth * ACTIVE_WIDTH_MULTIPLIER, duration: ANIMATION_DURATION, ease: Ease.OutQuad, onValueChange: (float val)=> {
             _layoutElement.preferredWidth = val;
         });
+
+        // Idle icon animation.
+        _iconTween.Stop();
+        _iconTween = Tween.Custom(0f, 1f, duration: 1f, cycles: -1, cycleMode: CycleMode.Yoyo, onValueChange: (float val)=> {
+            _iconRectTransform.localScale = Vector3.Lerp(Vector3.one, Vector3.one * 1.05f, val);
+        });
     }
 
     public void Deactivate() {
@@ -108,7 +121,7 @@ public class HomeScreenBottomBarItem : MonoBehaviour {
 
         _textTween.Stop();
         _textTween = Tween.Custom(1f, 0f, duration: ANIMATION_DURATION, onValueChange: (float val)=> {
-            _textLayoutElement.preferredHeight = val * _initialTextHeight;
+            _textLayoutElement.preferredHeight = _initialTextHeight* val;
         });
 
         if(_background != null) {
@@ -124,5 +137,7 @@ public class HomeScreenBottomBarItem : MonoBehaviour {
         _widthTween = Tween.Custom(_initialWidth * ACTIVE_WIDTH_MULTIPLIER, _initialWidth, duration: ANIMATION_DURATION * 0.5f, onValueChange: (float val)=> {
             _layoutElement.preferredWidth = val;
         });
+
+        _iconTween.Stop();
     }
 }
