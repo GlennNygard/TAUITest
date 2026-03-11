@@ -53,7 +53,7 @@ public class HomeScreenBottomBarItem : MonoBehaviour {
 
 
     // Tweens.
-    private Tween _mainTween;
+    private Tween _backgroundTween;
     private Tween _textTween;
     private Tween _widthTween;
     private Tween _iconTween;
@@ -97,8 +97,8 @@ public class HomeScreenBottomBarItem : MonoBehaviour {
 
         if(_background != null) {
             _background.enabled = true;
-            _mainTween.Stop();
-            _mainTween = Tween.Custom(_background.color.a, 1f, duration: ANIMATION_DURATION, onValueChange: (float val)=> {
+            _backgroundTween.Stop();
+            _backgroundTween = Tween.Custom(_background.color.a, 1f, duration: ANIMATION_DURATION, onValueChange: (float val)=> {
                 _background.color = new Color(
                     _background.color.r, _background.color.g, _background.color.b, val);
             });
@@ -125,8 +125,8 @@ public class HomeScreenBottomBarItem : MonoBehaviour {
         });
 
         if(_background != null) {
-            _mainTween.Stop();
-            _mainTween = Tween.Custom(_background.color.a, 0f, duration: ANIMATION_DURATION, onValueChange: (float val)=> {
+            _backgroundTween.Stop();
+            _backgroundTween = Tween.Custom(_background.color.a, 0f, duration: ANIMATION_DURATION, onValueChange: (float val)=> {
                 _background.color = new Color(
                     _background.color.r, _background.color.g, _background.color.b, val);
             }).OnComplete(() => {

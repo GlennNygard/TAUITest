@@ -63,5 +63,4 @@ public class BasePopup : MonoBehaviour {
         }
         OnPopupHide?.Invoke();
     }
-
 }
